@@ -4,10 +4,10 @@ import requests
 import csv
 
 start = time.time()
-with open('sample_MP.csv', mode="a+") as csvfile:
-    fieldnames = ['Date', 'Positive', 'State']
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
+csvfile = open('sample_MP.csv', mode="a+")
+fieldnames = ['Date', 'Positive', 'State']
+writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+writer.writeheader()
 def runapi(parameter):
         with open('sample_MP.csv', mode="a+") as csvfile:
             state_base_url = 'https://api.covidtracking.com/v1/states/' + parameter + '/daily.json'
