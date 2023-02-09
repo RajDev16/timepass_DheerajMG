@@ -1,0 +1,29 @@
+import multiprocessing
+import time
+import math
+import requests
+import csv
+
+
+
+try:
+    start=time.time()
+    with open('sample.csv',mode="w") as csvfile:    
+        fieldnames=['Date','Positive','State']
+        writer=csv.DictWriter(csvfile,fieldnames=fieldnames)
+        writer.writeheader()
+        l=['al','ak','az','ar','ca','co','ct','de','dc','fl','ga','hi','id','il','in','ia','ks','ky','la','me']
+        for stateinput in l:        
+            state_base_url='https://api.covidtracking.com/v1/states/'+stateinput+'/daily.json'
+            response=requests.get(state_base_url)
+            data=response.json()
+            for i in data:
+                writer.writerow({"Date":i['date'],'Positive':i['positive'],'State':i['state']})
+            print("Done",stateinput)
+            
+    end=time.time()
+    print("CSV File has been successfully created with the name as the statecode and the time difference is",end-start)
+    
+except:
+    print("\nThere is an error with the state code provided")
+    
